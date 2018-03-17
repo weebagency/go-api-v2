@@ -14,9 +14,10 @@ func main() {
 	// Init
 	var g group.Group
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 	l, _ := net.Listen("tcp", ":8080")
 	sm := state.NewStateMachine()
-	a := &api.API{Action: sm.Actionc}
+	a := api.NewAPI(sm.Actionc)
 
 	// Routes
 	h := http.NewServeMux()
