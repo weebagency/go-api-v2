@@ -12,17 +12,17 @@ import (
 
 func main() {
 	// Init
-	sm := state.NewStateMachine()
-	api := api.API{sm.Actionc}
-	h := http.NewServeMux()
-	h.HandleFunc("/", api.IndexHandler)
-
-	l, _ := net.Listen("tcp", ":8080")
-
-	ctx, cancel := context.WithCancel(context.Background())
-
 	var g group.Group
+	ctx, cancel := context.WithCancel(context.Background())
+	l, _ := net.Listen("tcp", ":8080")
+	sm := state.NewStateMachine()
+	a := &api.API{Action: sm.Actionc}
 
+	// Routes
+	h := http.NewServeMux()
+	a.RegisterRoutes(h)
+
+	// Add components
 	g.Add(func() error {
 		return sm.Run(ctx)
 	}, func(error) {

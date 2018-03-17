@@ -9,6 +9,6 @@ RUN apk update && \
 
 RUN go get github.com/pilu/fresh
 
-ADD . /go/src/apps/api
-RUN cd /go/src/apps/api && \
+ADD . /go/src/github.com/weebagency/go-api-v2
+RUN cd /go/src/github.com/weebagency/go-api-v2 && \
     go get ./...
