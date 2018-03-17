@@ -9,7 +9,7 @@ services:
       - db:database
     volumes:
       - .:/go/src/github.com/weebagency/go-api
-    working_dir: /go/src/github.com/weebagency/go-api
+    working_dir: /go/src/github.com/weebagency/go-api/cmd/apisrv
     # command: go run main.go
     command: fresh
   db:
