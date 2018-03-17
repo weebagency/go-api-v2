@@ -1,6 +1,9 @@
 package state
 
-import "context"
+import (
+	"context"
+	"log"
+)
 
 type StateMachine struct {
 	state   string
@@ -27,15 +30,15 @@ func (sm *StateMachine) Run(ctx context.Context) error {
 	}
 }
 
-/*
-func (sm *StateMachine) index() int {
+func (sm *StateMachine) Index() int {
 	c := make(chan int)
-	sm.actionc <- func() {
+	sm.Actionc <- func() {
 		if sm.state == "initial" {
-			sm.state = "index"
+			sm.state = "index 5"
 		}
+
+		log.Println(sm.state)
 		c <- 1
 	}
 	return <-c
 }
-*/

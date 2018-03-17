@@ -9,9 +9,9 @@ services:
       - db:database
     volumes:
       - .:/go/src/github.com/weebagency/go-api-v2
-    working_dir: /go/src/github.com/weebagency/go-api-v2/cmd/apisrv
-    # command: go run main.go
-    command: fresh
+    working_dir: /go/src/github.com/weebagency/go-api-v2
+    # command: go run ./cmd/apisrv/main.go
+    command: refresh run
   db:
     image: mysql:8
     ports:

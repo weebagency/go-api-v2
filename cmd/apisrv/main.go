@@ -17,7 +17,7 @@ func main() {
 	defer cancel()
 	l, _ := net.Listen("tcp", ":8080")
 	sm := state.NewStateMachine()
-	a := api.NewAPI(sm.Actionc)
+	a := api.NewAPI(sm)
 
 	// Routes
 	h := http.NewServeMux()
