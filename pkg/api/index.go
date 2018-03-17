@@ -6,8 +6,10 @@ import (
 )
 
 func (a *API) indexHandler(w http.ResponseWriter, r *http.Request) {
-	ok := make(chan []byte)
-
+	var (
+		resOK   = make(chan []byte)
+		jsonErr = make(chan error)
+	)
 	a.Action <- func() {
 
 		s := struct {
@@ -18,16 +20,18 @@ func (a *API) indexHandler(w http.ResponseWriter, r *http.Request) {
 
 		res, err := json.Marshal(s)
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+			jsonErr <- err
 			return
 		}
 
-		ok <- res
+		resOK <- res
 	}
 
 	select {
-	case k := <-ok:
+	case err := <-jsonErr:
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	case ok := <-resOK:
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(k)
+		w.Write(ok)
 	}
 }
