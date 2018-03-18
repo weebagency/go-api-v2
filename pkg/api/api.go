@@ -3,6 +3,7 @@ package api
 import (
 	"net/http"
 
+	mw "github.com/weebagency/go-api-v2/pkg/middleware"
 	"github.com/weebagency/go-api-v2/pkg/state"
 )
 
@@ -16,7 +17,12 @@ func NewAPI(sm *state.StateMachine) *API {
 
 func (a *API) RegisterRoutes(h *http.ServeMux) {
 
-	http.Handle("/", middleware.Set(middleware.Logger())(a.indexHandler))
-	//h.HandleFunc("/", a.indexHandler)
+	//logger := log.New(os.Stdout, "server: ", log.Lshortfile)
+
+	h.HandleFunc("/", mw.Decorate(a.indexHandler, mw.WithLogger))
+
+	//http.Handle("/", mw.WithLogger(a.indexHandler))
+
+	//h.HandleFunc("/", mw.WithLogger(a.indexHandler))
 
 }
