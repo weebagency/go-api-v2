@@ -2,6 +2,7 @@ package api
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 )
 
@@ -29,9 +30,8 @@ func (a *API) indexHandler(w http.ResponseWriter, r *http.Request) {
 	case err := <-jsonErr:
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	case ok := <-resOK:
-
 		// Respond
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(ok)
+		fmt.Fprintf(w, "%s", ok)
 	}
 }
