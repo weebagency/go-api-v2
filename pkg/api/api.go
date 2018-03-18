@@ -17,12 +17,9 @@ func NewAPI(sm *state.StateMachine) *API {
 
 func (a *API) RegisterRoutes(h *http.ServeMux) {
 
-	//logger := log.New(os.Stdout, "server: ", log.Lshortfile)
-
-	h.HandleFunc("/", mw.Decorate(a.indexHandler, mw.WithLogger))
+	h.HandleFunc("/", mw.Decorate(a.indexHandler,
+		mw.WithLogger))
 
 	//http.Handle("/", mw.WithLogger(a.indexHandler))
-
-	//h.HandleFunc("/", mw.WithLogger(a.indexHandler))
 
 }
