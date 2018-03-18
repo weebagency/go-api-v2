@@ -2,7 +2,6 @@ package state
 
 import (
 	"context"
-	"log"
 )
 
 type StateMachine struct {
@@ -30,6 +29,7 @@ func (sm *StateMachine) Run(ctx context.Context) error {
 	}
 }
 
+/*
 func (sm *StateMachine) Index() int {
 	c := make(chan int)
 	sm.Actionc <- func() {
@@ -42,3 +42,4 @@ func (sm *StateMachine) Index() int {
 	}
 	return <-c
 }
+*/

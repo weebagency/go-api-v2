@@ -11,7 +11,6 @@ func (a *API) indexHandler(w http.ResponseWriter, r *http.Request) {
 		jsonErr = make(chan error)
 	)
 	a.sm.Actionc <- func() {
-
 		s := struct {
 			Name string
 		}{
@@ -30,8 +29,6 @@ func (a *API) indexHandler(w http.ResponseWriter, r *http.Request) {
 	case err := <-jsonErr:
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 	case ok := <-resOK:
-		// Mutate state
-		a.sm.Index()
 		// Respond
 		w.Header().Set("Content-Type", "application/json")
 		w.Write(ok)

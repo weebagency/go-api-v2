@@ -15,5 +15,8 @@ func NewAPI(sm *state.StateMachine) *API {
 }
 
 func (a *API) RegisterRoutes(h *http.ServeMux) {
-	h.HandleFunc("/", a.indexHandler)
+
+	http.Handle("/", middleware.Set(middleware.Logger())(a.indexHandler))
+	//h.HandleFunc("/", a.indexHandler)
+
 }
